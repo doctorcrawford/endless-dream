@@ -8,7 +8,8 @@ function NewDreamForm(props) {
     e.preventDefault()
     props.onNewDreamCreation({
       title: e.target.title.value,
-      description: e.target.title.value,
+      type: e.target.type.value,
+      description: e.target.description.value,
       id: v4()
     })
   }

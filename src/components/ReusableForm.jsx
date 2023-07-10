@@ -9,6 +9,14 @@ function ReusableForm(props) {
           type="text"
           name="title"
           placeholder="Dream Title" />
+        <label>
+          Type: 
+          <select name='type'>
+            <option value="dream">Dream</option>
+            <option value="nightmare">Nightmare</option>
+            <option value="purgatory">Purgatory</option>
+          </select>
+        </label>
         <input
           type="text"
           name="description"

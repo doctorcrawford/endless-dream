@@ -6,6 +6,7 @@ function DreamList(props) {
   const dreamList =
     props.dreamList.map((dream) =>
       <Dream
+        whenDreamClicked={props.onDreamSelection}
         title={dream.title}
         description={dream.description}
         id={dream.id}
@@ -21,6 +22,7 @@ function DreamList(props) {
 
 DreamList.propTypes = {
   dreamList: PropTypes.array,
+  onDreamSelection: PropTypes.func
 }
 
 export default DreamList
