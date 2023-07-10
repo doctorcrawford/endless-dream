@@ -17,10 +17,12 @@ function DreamControl() {
   if (formVisibleOnPage) {
     currentlyVisibleState = 
       <NewDreamForm />
+      buttonText='Return to Dream List'
   } else {
     currentlyVisibleState = 
       <DreamList
         dreamList={mainDreamList } />
+        buttonText='Add your dream'
   }
   return (
     <>
