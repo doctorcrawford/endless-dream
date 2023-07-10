@@ -10,19 +10,26 @@ function DreamControl() {
   const handleClick = () => {
     setFormVisibleOnPage(!formVisibleOnPage)
   }
-  
+
+  const handleAddingNewDreamToList = (newDream) => {
+    const newMainDreamList = mainDreamList.concat(newDream)
+    setMainDreamList(newMainDreamList)
+    setFormVisibleOnPage(false)
+  }
+
   let currentlyVisibleState = null;
   let buttonText = null
 
   if (formVisibleOnPage) {
-    currentlyVisibleState = 
-      <NewDreamForm />
-      buttonText='Return to Dream List'
+    currentlyVisibleState =
+      <NewDreamForm
+        onNewDreamCreation={handleAddingNewDreamToList} />
+    buttonText = 'Return to Dream List'
   } else {
-    currentlyVisibleState = 
+    currentlyVisibleState =
       <DreamList
-        dreamList={mainDreamList } />
-        buttonText='Add your dream'
+        dreamList={mainDreamList} />
+    buttonText = 'Add your dream'
   }
   return (
     <>
