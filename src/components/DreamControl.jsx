@@ -3,6 +3,9 @@ import DreamList from './DreamList'
 import NewDreamForm from './NewDreamForm'
 import DreamDetail from './DreamDetails'
 import EditDreamForm from './EditDreamForm'
+import db from './../firebase.js'
+import { collection, addDoc } from 'firebase/firestore'
+
 
 function DreamControl() {
 
@@ -21,10 +24,13 @@ function DreamControl() {
     }
   }
 
-  const handleAddingNewDreamToList = (newDream) => {
-    const newMainDreamList = mainDreamList.concat(newDream)
-    setMainDreamList(newMainDreamList)
+  const handleAddingNewDreamToList = async (newDreamData) => {
+    console.log('hummus')
+    // const newMainDreamList = mainDreamList.concat(newDream)
+    // setMainDreamList(newMainDreamList)
+    await addDoc(collection(db, 'dreams'), newDreamData)
     setFormVisibleOnPage(false)
+    console.log('extra hummus')
   }
 
   const handleChangingSelectedDream = (id) => {
@@ -35,8 +41,8 @@ function DreamControl() {
   const handleEditingDreamInList = (dreamToEdit) => {
     const editedMainDreamList =
       mainDreamList
-      .filter(dream => dream.id !== selectedDream.id)
-      .concat(dreamToEdit)
+        .filter(dream => dream.id !== selectedDream.id)
+        .concat(dreamToEdit)
 
     setMainDreamList(editedMainDreamList)
     setEditing(false)
