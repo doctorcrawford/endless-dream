@@ -31,7 +31,7 @@ function DreamControl() {
     const selection = mainDreamList.filter(dream => dream.id === id)[0]
     setSelectedDream(selection)
   }
-
+  
   const handleEditingDreamInList = (dreamToEdit) => {
     const editedMainDreamList =
       mainDreamList
@@ -45,13 +45,6 @@ function DreamControl() {
 
   const handleEditClick = () => {
     setEditing(true)
-  }
-
-  const handleEditingDreamInList = (dreamToEdit) => {
-    const editedMainDreamList =
-      mainDreamList
-      .filter()
-
   }
 
   let currentlyVisibleState = null;
