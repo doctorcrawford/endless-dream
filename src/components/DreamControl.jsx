@@ -31,7 +31,7 @@ function DreamControl() {
     const selection = mainDreamList.filter(dream => dream.id === id)[0]
     setSelectedDream(selection)
   }
-  
+
   const handleEditingDreamInList = (dreamToEdit) => {
     const editedMainDreamList =
       mainDreamList
@@ -47,6 +47,13 @@ function DreamControl() {
     setEditing(true)
   }
 
+  const handleDeletingDream = (id) => {
+    const newMainDreamList = mainDreamList.filter(dream => dream.id !== id)
+    setMainDreamList(newMainDreamList)
+    setSelectedDream(null)
+  }
+
+
   let currentlyVisibleState = null;
   let buttonText = null
 
@@ -60,7 +67,8 @@ function DreamControl() {
     currentlyVisibleState =
       <DreamDetail
         dream={selectedDream}
-        onClickingEdit={handleEditClick} />
+        onClickingEdit={handleEditClick}
+        onClickingDelete={handleDeletingDream} />
     buttonText = 'Return to Dream List'
   } else if (formVisibleOnPage) {
     currentlyVisibleState =

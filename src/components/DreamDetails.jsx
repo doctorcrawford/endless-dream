@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 function DreamDetail(props) {
-  const { dream, onClickingEdit } = props
+  const { dream, onClickingEdit, onClickingDelete } = props
 
   return (
     <>
@@ -10,13 +10,15 @@ function DreamDetail(props) {
       <p><strong>Type:</strong> {dream.type}</p>
       <p><strong>Description:</strong> {dream.description}</p>
       <button onClick={() => onClickingEdit(dream.id)}>Edit Dream</button>
+      <button onClick={() => onClickingDelete(dream.id)}>Delete Dream</button>
     </>
   )
 }
 
 DreamDetail.propTypes = {
   dream: PropTypes.object,
-  onClickingEdit: PropTypes.func
+  onClickingEdit: PropTypes.func,
+  onClickingDelete: PropTypes.func
 }
 
 export default DreamDetail
