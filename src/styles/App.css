@@ -3,6 +3,6 @@ body {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-image: url('./../images/dream-field.jpeg');
+  background-image: url('./../images/dream-field.jpeg')!important;
   background-position-x: center;
 }
