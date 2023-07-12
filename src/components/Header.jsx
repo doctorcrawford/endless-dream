@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 const HeaderStyle = styled.div`
   background-image: url(https://img.freepik.com/free-photo/beautiful-verdigris-oxidized-copper-background_24837-103.jpg?w=2000&t=st=1689197736~exp=1689198336~hmac=ba778ebb02a5a38ebf67f115537041ea7f074f895b1378546bda3b0b0257b9a6);
@@ -35,6 +36,10 @@ const Container = styled.p`
   flex-direction: row;
   backdrop-filter: blur(80px);
   padding: 1em;
+  outline: 2px solid grey;
+  border-radius: 30px;
+  box-shadow: 4px 4px 8px 2px grey;
+  width: 20vw;
 `
 
 function Header() {
@@ -47,10 +52,12 @@ function Header() {
         <EndlessDreamHeader>
           Endless Dream
         </EndlessDreamHeader>
-        <Container>
-          <Link to='/' style={padding}>Home</Link>
-          <Link to='/sign-in'>Sign In</Link>
-        </Container>
+        <Tabs>
+          <TabList>
+            <Tab><Link to='/' style={padding}>Home</Link></Tab>
+            <Tab><Link to='/sign-in'>Sign In</Link></Tab>
+          </TabList>
+        </Tabs>
       </HeaderStyle>
     </>
   )

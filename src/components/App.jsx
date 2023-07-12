@@ -7,13 +7,13 @@ import './../styles/app.css'
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/' element={<DreamControl />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/' element={<DreamControl />} />
+        </Routes>
+      </Router>
   )
 }
 
