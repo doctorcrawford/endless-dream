@@ -3,7 +3,7 @@ import DreamList from './DreamList'
 import NewDreamForm from './NewDreamForm'
 import DreamDetail from './DreamDetails'
 import EditDreamForm from './EditDreamForm'
-import db from './../firebase.js'
+import { db, auth } from './../firebase'
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 function DreamControl() {
@@ -67,48 +67,56 @@ function DreamControl() {
     setEditing(true)
   }
 
-  const handleDeletingDream = async(id) => {
+  const handleDeletingDream = async (id) => {
     await deleteDoc(doc(db, 'dreams', id))
     setSelectedDream(null)
   }
 
+  if (auth.currentUser == null) {
+    return (
+      <>
+        <h1>You must be signed in to access the dream state.</h1>
+      </>
+    )
+  } else if (auth.currentUser != null) {
 
-  let currentlyVisibleState = null;
-  let buttonText = null
+    let currentlyVisibleState = null;
+    let buttonText = null
 
-  if (error) {
-    currentlyVisibleState = <p>There was an error: {error}</p>
-  } else if (editing) {
-    currentlyVisibleState =
-      <EditDreamForm
-        dream={selectedDream}
-        onEditDream={handleEditingDreamInList} />
-    buttonText = 'Return to Dream List'
-  } else if (selectedDream != null) {
-    currentlyVisibleState =
-      <DreamDetail
-        dream={selectedDream}
-        onClickingEdit={handleEditClick}
-        onClickingDelete={handleDeletingDream} />
-    buttonText = 'Return to Dream List'
-  } else if (formVisibleOnPage) {
-    currentlyVisibleState =
-      <NewDreamForm
-        onNewDreamCreation={handleAddingNewDreamToList} />
-    buttonText = 'Return to Dream List'
-  } else {
-    currentlyVisibleState =
-      <DreamList
-        dreamList={mainDreamList}
-        onDreamSelection={handleChangingSelectedDream} />
-    buttonText = 'Add your dream'
+    if (error) {
+      currentlyVisibleState = <p>There was an error: {error}</p>
+    } else if (editing) {
+      currentlyVisibleState =
+        <EditDreamForm
+          dream={selectedDream}
+          onEditDream={handleEditingDreamInList} />
+      buttonText = 'Return to Dream List'
+    } else if (selectedDream != null) {
+      currentlyVisibleState =
+        <DreamDetail
+          dream={selectedDream}
+          onClickingEdit={handleEditClick}
+          onClickingDelete={handleDeletingDream} />
+      buttonText = 'Return to Dream List'
+    } else if (formVisibleOnPage) {
+      currentlyVisibleState =
+        <NewDreamForm
+          onNewDreamCreation={handleAddingNewDreamToList} />
+      buttonText = 'Return to Dream List'
+    } else {
+      currentlyVisibleState =
+        <DreamList
+          dreamList={mainDreamList}
+          onDreamSelection={handleChangingSelectedDream} />
+      buttonText = 'Add your dream'
+    }
+    return (
+      <>
+        {currentlyVisibleState}
+        {error ? null : <button onClick={handleClick}>{buttonText}</button>}
+      </>
+    )
   }
-  return (
-    <>
-      {currentlyVisibleState}
-      {error ? null : <button onClick={handleClick}>{buttonText}</button>}
-    </>
-  )
 }
 
 export default DreamControl
