@@ -4,7 +4,7 @@ import NewDreamForm from './NewDreamForm'
 import DreamDetail from './DreamDetails'
 import EditDreamForm from './EditDreamForm'
 import db from './../firebase.js'
-import { collection, addDoc, onSnapshot, deleteDoc } from 'firebase/firestore'
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 function DreamControl() {
 
@@ -23,7 +23,6 @@ function DreamControl() {
             title: doc.data().title,
             type: doc.data().type,
             description: doc.data().description,
-            // ...doc.data(),
             id: doc.id
           }
         })
@@ -48,8 +47,6 @@ function DreamControl() {
   }
 
   const handleAddingNewDreamToList = async (newDreamData) => {
-    // const newMainDreamList = mainDreamList.concat(newDream)
-    // setMainDreamList(newMainDreamList)
     await addDoc(collection(db, 'dreams'), newDreamData)
     setFormVisibleOnPage(false)
   }
@@ -59,13 +56,9 @@ function DreamControl() {
     setSelectedDream(selection)
   }
 
-  const handleEditingDreamInList = (dreamToEdit) => {
-    const editedMainDreamList =
-      mainDreamList
-        .filter(dream => dream.id !== selectedDream.id)
-        .concat(dreamToEdit)
-
-    setMainDreamList(editedMainDreamList)
+  const handleEditingDreamInList = async (dreamToEdit) => {
+    const dreamRef = doc(db, 'dreams', dreamToEdit.id)
+    await updateDoc(dreamRef, dreamToEdit)
     setEditing(false)
     setSelectedDream(null)
   }
@@ -74,9 +67,8 @@ function DreamControl() {
     setEditing(true)
   }
 
-  const handleDeletingDream = (id) => {
-    const newMainDreamList = mainDreamList.filter(dream => dream.id !== id)
-    setMainDreamList(newMainDreamList)
+  const handleDeletingDream = async(id) => {
+    await deleteDoc(doc(db, 'dreams', id))
     setSelectedDream(null)
   }
 
