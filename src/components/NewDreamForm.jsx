@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-// import { v4 } from 'uuid'
 import ReusableForm from './ReusableForm'
+import { serverTimestamp } from 'firebase/firestore'
 
 function NewDreamForm(props) {
 
@@ -10,7 +10,7 @@ function NewDreamForm(props) {
       title: e.target.title.value,
       type: e.target.type.value,
       description: e.target.description.value,
-      // id: v4()
+      timeOpen: serverTimestamp()
     })
   }
 

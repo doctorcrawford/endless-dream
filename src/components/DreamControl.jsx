@@ -4,7 +4,7 @@ import NewDreamForm from './NewDreamForm'
 import DreamDetail from './DreamDetails'
 import EditDreamForm from './EditDreamForm'
 import { db, auth } from './../firebase'
-import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore'
 
 function DreamControl() {
 
@@ -15,14 +15,23 @@ function DreamControl() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    const unSubscribe = onSnapshot(
+
+    const queryByTimestamp = query(
       collection(db, 'dreams'),
+      orderBy('timeOpen')
+    )
+    
+    const unSubscribe = onSnapshot(
+      queryByTimestamp,
       (collectionSnapshot) => {
         const dreams = collectionSnapshot.docs.map((doc) => {
+          const timeOpen = doc.get('timeOpen', {serverTimestamps: 'estimate'}).toDate()
+          const jsDate = new Date(timeOpen)
           return {
             title: doc.data().title,
             type: doc.data().type,
             description: doc.data().description,
+            timeOpen: jsDate,
             id: doc.id
           }
         })
