@@ -2,6 +2,8 @@ import Header from './Header'
 import DreamControl from './DreamControl'
 import SignIn from './SignIn';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './../styles/app.css'
+
 
 function App() {
   return (
