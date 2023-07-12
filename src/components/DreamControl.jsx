@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DreamList from './DreamList'
 import NewDreamForm from './NewDreamForm'
 import DreamDetail from './DreamDetails'
 import EditDreamForm from './EditDreamForm'
 import db from './../firebase.js'
-import { collection, addDoc } from 'firebase/firestore'
-
+import { collection, addDoc, onSnapshot, deleteDoc } from 'firebase/firestore'
 
 function DreamControl() {
 
@@ -13,6 +12,30 @@ function DreamControl() {
   const [mainDreamList, setMainDreamList] = useState([])
   const [selectedDream, setSelectedDream] = useState(null)
   const [editing, setEditing] = useState(false)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const unSubscribe = onSnapshot(
+      collection(db, 'dreams'),
+      (collectionSnapshot) => {
+        const dreams = collectionSnapshot.docs.map((doc) => {
+          return {
+            title: doc.data().title,
+            type: doc.data().type,
+            description: doc.data().description,
+            // ...doc.data(),
+            id: doc.id
+          }
+        })
+        setMainDreamList(dreams)
+      },
+      (error) => {
+        setError(error.message)
+      }
+    )
+
+    return () => unSubscribe()
+  }, [])
 
   const handleClick = () => {
     if (selectedDream !== null) {
@@ -25,12 +48,10 @@ function DreamControl() {
   }
 
   const handleAddingNewDreamToList = async (newDreamData) => {
-    console.log('hummus')
     // const newMainDreamList = mainDreamList.concat(newDream)
     // setMainDreamList(newMainDreamList)
     await addDoc(collection(db, 'dreams'), newDreamData)
     setFormVisibleOnPage(false)
-    console.log('extra hummus')
   }
 
   const handleChangingSelectedDream = (id) => {
@@ -63,7 +84,9 @@ function DreamControl() {
   let currentlyVisibleState = null;
   let buttonText = null
 
-  if (editing) {
+  if (error) {
+    currentlyVisibleState = <p>There was an error: {error}</p>
+  } else if (editing) {
     currentlyVisibleState =
       <EditDreamForm
         dream={selectedDream}
@@ -91,7 +114,7 @@ function DreamControl() {
   return (
     <>
       {currentlyVisibleState}
-      <button onClick={handleClick}>{buttonText}</button>
+      {error ? null : <button onClick={handleClick}>{buttonText}</button>}
     </>
   )
 }
