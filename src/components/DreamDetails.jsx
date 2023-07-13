@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { Button } from '@chakra-ui/react'
 
 function DreamDetail(props) {
   const { dream, onClickingEdit, onClickingDelete } = props
@@ -9,8 +10,8 @@ function DreamDetail(props) {
       <p><strong>Title:</strong> {dream.title}</p>
       <p><strong>Type:</strong> {dream.type}</p>
       <p><strong>Description:</strong> {dream.description}</p>
-      <button onClick={() => onClickingEdit(dream.id)}>Edit Dream</button>
-      <button onClick={() => onClickingDelete(dream.id)}>Delete Dream</button>
+      <Button onClick={() => onClickingEdit(dream.id)}>Edit Dream</Button>
+      <Button onClick={() => onClickingDelete(dream.id)}>Delete Dream</Button>
     </>
   )
 }

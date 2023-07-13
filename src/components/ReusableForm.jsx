@@ -1,5 +1,5 @@
-import React from "react"
 import PropTypes from "prop-types";
+import { Button } from '@chakra-ui/react'
 
 function ReusableForm(props) {
   return (
@@ -9,6 +9,7 @@ function ReusableForm(props) {
           type="text"
           name="title"
           placeholder="Dream Title" />
+          <br/>
         <label>
           Type: 
           <select name='type'>
@@ -17,11 +18,13 @@ function ReusableForm(props) {
             <option value="purgatory">Purgatory</option>
           </select>
         </label>
+        <br/>
         <input
           type="text"
           name="description"
           placeholder="Description" />
-        <button type="submit">{props.buttonText}</button>
+          <br/>
+        <Button type="submit">{props.buttonText}</Button>
       </form>
     </>
   )

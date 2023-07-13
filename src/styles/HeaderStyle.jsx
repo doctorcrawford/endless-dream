@@ -21,11 +21,12 @@ export const EndlessDreamHeader = styled.h1`
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-stroke: 2px grey;
+  -webkit-text-stroke: 2px rgba(85, 85, 85);
   paint-order: stroke fill;
   margin-bottom: 20px;
   height: 1em;
   font-family: Roboto Slab, serif;
+  -webkit-backdrop-filter: blur(3px);
 `
 
 export const NavbarLink = styled(Link)`

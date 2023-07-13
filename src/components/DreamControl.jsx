@@ -5,6 +5,8 @@ import DreamDetail from './DreamDetails'
 import EditDreamForm from './EditDreamForm'
 import { db, auth } from './../firebase'
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore'
+import { Box } from '@chakra-ui/react'
+import { Button, ButtonGroup } from '@chakra-ui/react'
 
 function DreamControl() {
 
@@ -20,12 +22,12 @@ function DreamControl() {
       collection(db, 'dreams'),
       orderBy('timeOpen')
     )
-    
+
     const unSubscribe = onSnapshot(
       queryByTimestamp,
       (collectionSnapshot) => {
         const dreams = collectionSnapshot.docs.map((doc) => {
-          const timeOpen = doc.get('timeOpen', {serverTimestamps: 'estimate'}).toDate()
+          const timeOpen = doc.get('timeOpen', { serverTimestamps: 'estimate' }).toDate()
           const jsDate = new Date(timeOpen)
           return {
             title: doc.data().title,
@@ -84,7 +86,9 @@ function DreamControl() {
   if (auth.currentUser == null) {
     return (
       <>
-        <h1>You must be signed in to access the dream state.</h1>
+        <Box m='5' maxW='md' p='4' bgGradient='linear(to-r, red.500, red.300, red.500)' borderWidth='1px' borderRadius='lg'>
+          <h1>You must be signed in to access the dream state.</h1>
+        </Box>
       </>
     )
   } else if (auth.currentUser != null) {
@@ -121,8 +125,13 @@ function DreamControl() {
     }
     return (
       <>
-        {currentlyVisibleState}
-        {error ? null : <button onClick={handleClick}>{buttonText}</button>}
+        <Box m='5' maxW='md' p='4' bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
+          _hover={{
+            bgGradient: 'linear(to-r, yellow.400, pink.200, gray.300)',
+          }} borderWidth='1px' borderRadius='lg'>
+          <Box>{currentlyVisibleState}</Box>
+          {error ? null : <Button onClick={handleClick}>{buttonText}</Button>}
+        </Box>
       </>
     )
   }

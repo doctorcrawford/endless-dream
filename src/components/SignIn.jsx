@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { useState } from 'react'
 import { Box } from '@chakra-ui/react'
 import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Input } from '@chakra-ui/react'
 
 function SignIn() {
 
@@ -53,11 +54,12 @@ function SignIn() {
           <h1>Sign Up</h1>
           {signUpSuccess}
           <form onSubmit={doSignUp}>
-            <input
+            <Input
               type='text'
               name="email"
-              placeholder="Email" />
-            <input
+              placeholder="Email"
+              colorScheme='red' />
+            <Input
               type="password"
               name="password"
               placeholder="Password" />

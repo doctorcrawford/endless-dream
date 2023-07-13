@@ -3,7 +3,6 @@ import DreamControl from './DreamControl'
 import SignIn from './SignIn';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './../styles/app.css'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 function App() {
   return (
