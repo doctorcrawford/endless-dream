@@ -1,22 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './components/App.jsx'
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react'
+import chakraTheme from '@chakra-ui/theme'
 
-const colors = {
-  brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac',
+const { Button } = chakraTheme.components
+
+const theme = extendBaseTheme({
+  components: {
+    Button,
   },
-}
-
-const theme = extendTheme({ colors })
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
+    <ChakraBaseProvider theme={theme}>
       <App />
-    </ChakraProvider>
+    </ChakraBaseProvider>
   </React.StrictMode>,
 )

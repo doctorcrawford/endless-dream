@@ -1,6 +1,8 @@
 import { auth } from './../firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { useState } from 'react'
+import { Box } from '@chakra-ui/react'
+import { Button, ButtonGroup } from '@chakra-ui/react'
 
 function SignIn() {
 
@@ -43,38 +45,55 @@ function SignIn() {
 
   return (
     <>
-      <h1>Sign Up</h1>
-      {signUpSuccess}
-      <form onSubmit={doSignUp}>
-        <input
-          type='text'
-          name="email"
-          placeholder="Email" />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password" />
-        <button type="submit">Sign up</button>
-      </form>
+      <Box display='flex' flexDirection='column' alignItems='center'>
+        <Box m='5' maxW='md' p='4' bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
+          _hover={{
+            bgGradient: 'linear(to-r, yellow.400, pink.200, gray.300)',
+          }} borderWidth='1px' borderRadius='lg'>
+          <h1>Sign Up</h1>
+          {signUpSuccess}
+          <form onSubmit={doSignUp}>
+            <input
+              type='text'
+              name="email"
+              placeholder="Email" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password" />
+            <Button type="submit">Sign up</Button>
+          </form>
+        </Box>
 
-      <h1>Sign In</h1>
-      {signInSuccess}
-      <form onSubmit={doSignIn}>
-        <input
-          type='text'
-          name="email"
-          placeholder="Email" />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password" />
-        <button type="submit">Sign in</button>
-      </form>
+        <Box m='5' maxW='md' p='4' bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
+          _hover={{
+            bgGradient: 'linear(to-r, yellow.400, pink.200, gray.300)',
+          }} borderWidth='1px' borderRadius='lg'>
+          <h1>Sign In</h1>
+          {signInSuccess}
+          <form onSubmit={doSignIn}>
+            <input
+              type='text'
+              name="email"
+              placeholder="Email" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password" />
+            <Button type="submit">Sign in</Button>
+          </form>
+        </Box>
 
-      <h1>Sign Out</h1>
-      {signOutSuccess}
-      <br />
-      <button onClick={doSignOut}>Sign out</button>
+        <Box m='5' maxW='xs' p='4' bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
+          _hover={{
+            bgGradient: 'linear(to-r, yellow.400, pink.200, gray.300)',
+          }} borderWidth='1px' borderRadius='lg'>
+          <h1>Sign Out</h1>
+          {signOutSuccess}
+          <br />
+          <Button onClick={doSignOut}>Sign out</Button>
+        </Box>
+      </Box>
     </>
   )
 }
