@@ -14,7 +14,7 @@ const HeaderStyle = styled.div`
 `
 
 const EndlessDreamHeader = styled.h1`
-  font-size: 80px;
+  font-size: 85px;
   font-weight: 600;
   background-image: url(https://img.freepik.com/free-photo/beautiful-verdigris-oxidized-copper-background_24837-103.jpg?w=2000&t=st=1689197736~exp=1689198336~hmac=ba778ebb02a5a38ebf67f115537041ea7f074f895b1378546bda3b0b0257b9a6);
   background-size: 250px;
@@ -22,10 +22,11 @@ const EndlessDreamHeader = styled.h1`
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: grey;
-  margin-bottom: 0;
+  -webkit-text-stroke: 2px grey;
+  paint-order: stroke fill;
+  margin-bottom: 20px;
   height: 1em;
+  font-family: Roboto Slab, serif;
 `
 
 const Container = styled.p`
@@ -42,6 +43,21 @@ const Container = styled.p`
   width: 20vw;
 `
 
+const NavbarLink = styled(Link)`
+  color:white;
+  font-size: large;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  margin: 10px;
+  &:hover,
+  &:focus{
+    color: rgb(135,206,250);
+  }
+  &:active{
+    color: rgb(148,0,211);
+  }
+`
+
 function Header() {
   const padding = {
     paddingRight: '1rem'
@@ -52,12 +68,13 @@ function Header() {
         <EndlessDreamHeader>
           Endless Dream
         </EndlessDreamHeader>
-        <Tabs>
+        <Tabs variant='enclosed'>
           <TabList>
-            <Tab><Link to='/' style={padding}>Home</Link></Tab>
-            <Tab><Link to='/sign-in'>Sign In</Link></Tab>
+            <Tab><NavbarLink to='/' style={padding}>Home</NavbarLink></Tab>
+            <Tab><NavbarLink to='/sign-in'>Sign In</NavbarLink></Tab>
           </TabList>
         </Tabs>
+        <hr />
       </HeaderStyle>
     </>
   )
